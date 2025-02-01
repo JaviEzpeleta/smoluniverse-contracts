@@ -5,4 +5,10 @@ Universe Coin" with the ticker "SMOL"
 
 I'll probably use Base's Sepolia testnet.
 
-✅ done!! Contract deployed to: 0x7fab2E6A6252E11B3D8dF05cf3F9dC776a1bC184
+✅ done!! Contract deployed to: 0xBC3290d6EE35256471481A835FEA06659D169cB4
+
+How to deploy:
+
+```
+npx hardhat run scripts/deploy.ts --network base_sepolia
+```
