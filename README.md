@@ -1,13 +1,8 @@
-# Sample Hardhat Project
+# First goal:
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a Hardhat Ignition module that deploys that contract.
+learn how to create an ERC-20 token on Sepolia ETH. I will call it "Smol
+Universe Coin" with the ticker "SMOL"
 
-Try running some of the following tasks:
+I'll probably use Base's Sepolia testnet.
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat ignition deploy ./ignition/modules/Lock.ts
-```
+✅ done!! Contract deployed to: 0x7fab2E6A6252E11B3D8dF05cf3F9dC776a1bC184
