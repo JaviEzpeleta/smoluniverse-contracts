@@ -5,7 +5,7 @@ Universe Coin" with the ticker "SMOL"
 
 I'll probably use Base's Sepolia testnet.
 
-✅ done!! Contract deployed to: 0xBC3290d6EE35256471481A835FEA06659D169cB4
+✅ done!! Contract deployed to: 0xb8e5d6eDf418479aA4CC73def6E4DbB2a07E47E9
 
 How to deploy:
 

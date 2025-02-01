@@ -2,18 +2,22 @@ import { ethers } from "hardhat";
 
 async function main() {
   // Get the contract factory
-  const SmolSimCoin = await ethers.getContractFactory("SmolSimCoin");
+  const SmolUniverseCoin = await ethers.getContractFactory("SmolUniverseCoin");
 
+  console.log("🚀 Deploying SmolUniverseCoin Token contract...");
   // Deploy the contract
-  const smolSimCoin = await SmolSimCoin.deploy();
+  const smolUniverseCoin = await SmolUniverseCoin.deploy();
 
+  console.log("🔄 Waiting for contract deployment confirmation...");
   // Wait for contract deployment confirmation
-  await smolSimCoin.waitForDeployment();
+  await smolUniverseCoin.waitForDeployment();
 
   // Get deployed contract address
-  const contractAddress = await smolSimCoin.getAddress();
+  const contractAddress = await smolUniverseCoin.getAddress();
 
-  console.log(`✅ SmolSimCoin deployed to: ${contractAddress}`);
+  console.log(
+    `✅ SmolUniverseCoin Token contract deployed to: ${contractAddress}`
+  );
 }
 
 // Run the script with proper error handling
