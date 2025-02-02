@@ -1,11 +1,16 @@
 {
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
-    "hardhat": "^2.22.18"
+    "hardhat": "^2.22.18",
+    "prettier": "^3.4.2",
+    "prettier-plugin-solidity": "^1.4.2"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^5.2.0",
     "dotenv": "^16.4.7",
     "ethers": "^6.13.5"
+  },
+  "scripts": {
+    "format": "npx prettier --write --plugin=prettier-plugin-solidity 'contracts/**/*.sol'"
   }
 }
