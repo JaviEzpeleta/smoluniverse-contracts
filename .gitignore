@@ -4,7 +4,9 @@ node_modules
 
 # Hardhat files
 /cache
+/cache_forge
 /artifacts
+/out
 
 # TypeChain files
 /typechain
