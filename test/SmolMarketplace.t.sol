@@ -5,9 +5,10 @@ import {Test} from "forge-std/Test.sol";
 import {SmolMarketplace} from "../contracts/SmolMarketplace.sol";
 import {SmolNFT} from "../contracts/SmolNFT.sol";
 import {SmolUniverseCoin} from "../contracts/SmolUniverseCoin.sol";
+import {Base64} from "@openzeppelin/contracts/utils/Base64.sol";
 
 contract SmolMarketplaceTest is Test {
-    uint constant INITIAL_BALANCE = 10 ether;
+    uint256 constant INITIAL_BALANCE = 10 ether;
 
     SmolMarketplace public marketplace;
     SmolNFT public nft;
@@ -26,17 +27,9 @@ contract SmolMarketplaceTest is Test {
         nft = new SmolNFT();
         marketplace = new SmolMarketplace(address(paymentToken));
 
-        paymentToken.mintAndApprove(
-            buyer,
-            INITIAL_BALANCE,
-            address(marketplace)
-        );
+        paymentToken.mintAndApprove(buyer, INITIAL_BALANCE, address(marketplace));
 
-        nft.mintAndApprove(
-            nftOwner,
-            "https://example.com/nft1",
-            address(marketplace)
-        );
+        nft.mintAndApprove(nftOwner, address(marketplace), "Random description", "@me", "https://example.com/nft1");
         vm.stopPrank();
     }
 
@@ -65,7 +58,7 @@ contract SmolMarketplaceTest is Test {
         assertEq(paymentToken.balanceOf(nftOwner), nftPrice);
         assertEq(paymentToken.balanceOf(buyer), INITIAL_BALANCE - nftPrice);
 
-        (, , bool active) = marketplace.listings(0);
+        (,, bool active) = marketplace.listings(0);
         assertFalse(active);
     }
 
@@ -88,5 +81,38 @@ contract SmolMarketplaceTest is Test {
         vm.prank(owner);
         vm.expectRevert("Insufficient funds");
         marketplace.buyNFT(address(nft), 0, buyer);
+    }
+
+    function testTokenURI() public {
+        string memory description = "Random description";
+        string memory handle = "@me";
+        string memory imageUri = "https://example.com/nft1";
+
+        vm.prank(owner);
+        nft.mintAndApprove(buyer, owner, description, handle, imageUri);
+
+        string memory expectedTokenURI = string(
+            abi.encodePacked(
+                "data:application/json;base64,",
+                Base64.encode(
+                    bytes(
+                        abi.encodePacked(
+                            '{"name": "SmolNFT", "description": "',
+                            description,
+                            '", "attributes": [',
+                            '{"trait_type": "handle", "value": "',
+                            handle,
+                            '"}',
+                            '], "image":"',
+                            imageUri,
+                            '"}'
+                        )
+                    )
+                )
+            )
+        );
+
+        string memory actualTokenURI = nft.tokenURI(0);
+        assertEq(actualTokenURI, expectedTokenURI);
     }
 }
