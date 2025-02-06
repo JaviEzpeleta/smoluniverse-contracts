@@ -55,16 +55,19 @@ contract AVSTransfer {
         bytes calldata signature
     ) external {
         // Construye el hash del mensaje con los parámetros críticos
-        bytes32 messageHash = keccak256(
-            abi.encodePacked(token, from, to, amount, nonce, address(this))
-        );
 
-        bytes32 ethSignedMessageHash = keccak256(
-            abi.encodePacked("\x19Ethereum Signed Message:\n32", messageHash)
+        bytes memory message = abi.encodePacked(
+            token,
+            from,
+            to,
+            amount,
+            nonce
         );
-        // Recupera la dirección que firmó el mensaje
-        address recoveredSigner = ECDSA.recover(ethSignedMessageHash, signature);
-        require(recoveredSigner == verifier, "AVSTransfer: firma no valida");
+        bytes32 messageHash = keccak256(message);
+        bytes32 ethSignedMessageHash = keccak256(
+            abi.encodePacked("\x19Ethereum Signed Message:\n", message.length, message)
+        );
+        address recoveredSigner = ECDSA.recover(ethSignedMessageHash, signature);        require(recoveredSigner == verifier, "AVSTransfer: firma no valida");
 
         // Evita ataques de replay asegurando que la acción no se ejecute más de una vez
         require(!executedTransfers[messageHash], "AVSTransfer: transferencia ya ejecutada");
