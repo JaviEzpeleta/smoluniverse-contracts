@@ -4,7 +4,7 @@
 
 ### Please visit the primary repository for whole project tour details and instructions:
 
-[Github Repository](https://github.com/smoluniverse/smoluniverse)
+[Github Repository](https://github.com/JaviEzpeleta/smoluniverse-website)
 
 [Website](https://smoluniverse.com)
 
